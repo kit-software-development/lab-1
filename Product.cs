@@ -1,4 +1,6 @@
-﻿namespace Events
+﻿using System;
+
+namespace Events
 {
     /// <summary>
     /// Класс должен описывать представление о товаре. 
@@ -32,7 +34,7 @@
             {
                 name = value;
                 /* 
-                 * TODO #5 Инициировать уведомление об 
+                 * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
             }
@@ -47,7 +49,7 @@
             {
                 price = value;
                 /*
-                 * TODO #6 Инициировать уведомление об 
+                 * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
             }
@@ -58,22 +60,10 @@
         #region Events
 
         /* 
-         * TODO #4 Добавить определение событий
+         * TODO #3 Добавить определение событий
          */
 
         #endregion
-
-        internal ProductEventArgs ProductEventArgs
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
 
         public Product(string name, decimal price)
         {
