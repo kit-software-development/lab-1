@@ -65,19 +65,6 @@ namespace Events
 
         #endregion
 
-        internal ProductEventArgs ProductEventArgs
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public Product(string name, decimal price)
         {
             Name = name;
