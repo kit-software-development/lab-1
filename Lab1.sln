@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab1", "Lab1.csproj", "{1D4F8E19-BBA0-42A7-A4C3-7F1B816A2443}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events", "Events.csproj", "{1D4F8E19-BBA0-42A7-A4C3-7F1B816A2443}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
