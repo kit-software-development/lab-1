@@ -7,18 +7,19 @@ namespace Events
     /// В рамках лабораторной работы должен являться 
     /// источником события
     /// </summary>
-    class Product
+    public class Product
     {
-
         #region Variables
+
         /// <summary>
         /// Наименование
         /// </summary>
-        private string name;
+        private string _name;
+
         /// <summary>
         /// Стоимость
         /// </summary>
-        private decimal price;
+        private decimal _price;
 
         #endregion
 
@@ -29,14 +30,12 @@ namespace Events
         /// </summary>
         public string Name
         {
-            get { return name; }
+            get => _name;
             set
             {
-                name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
+                var args = new ProductChangedEventArgs<string>(_name, value);
+                _name = value;
+                NameChanged?.Invoke(this, args);
             }
         }
         /// <summary>
@@ -44,14 +43,12 @@ namespace Events
         /// </summary>
         public decimal Price
         {
-            get { return price; }
+            get => _price;
             set
             {
-                price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
+                var args = new ProductChangedEventArgs<decimal>(_price, value);
+                _price = value;
+                PriceChanged?.Invoke(this, args);
             }
         }
 
@@ -59,9 +56,15 @@ namespace Events
 
         #region Events
 
-        /* 
-         * TODO #3 Добавить определение событий
-         */
+        /// <summary>
+        /// Событие об изменении наименования <seealso cref="Name"/>
+        /// </summary>
+        public event EventHandler<ProductChangedEventArgs<string>> NameChanged;
+
+        /// <summary>
+        /// Событие об изменении стоимости <seealso cref="Price"/>
+        /// </summary>
+        public event EventHandler<ProductChangedEventArgs<decimal>> PriceChanged;
 
         #endregion
 
@@ -70,6 +73,5 @@ namespace Events
             Name = name;
             Price = price;
         }
-
     }
 }
