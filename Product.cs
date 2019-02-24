@@ -29,14 +29,11 @@ namespace Events
         /// </summary>
         public string Name
         {
-            get { return name; }
+            get => name;
             set
             {
+                NameChanged?.Invoke(this, new ProductEventArgs<string>(name, value));
                 name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
             }
         }
         /// <summary>
@@ -44,14 +41,11 @@ namespace Events
         /// </summary>
         public decimal Price
         {
-            get { return price; }
+            get => price;
             set
             {
+                PriceChanged?.Invoke(this, new ProductEventArgs<decimal>(price, value));
                 price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
             }
         }
 
@@ -59,9 +53,9 @@ namespace Events
 
         #region Events
 
-        /* 
-         * TODO #3 Добавить определение событий
-         */
+        public event EventHandler<ProductEventArgs<string>> NameChanged;
+
+        public event EventHandler<ProductEventArgs<decimal>> PriceChanged;
 
         #endregion
 
