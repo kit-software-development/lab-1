@@ -2,56 +2,52 @@
 
 namespace Events
 {
-    /// <summary>
+
     /// Класс должен описывать представление о товаре. 
     /// В рамках лабораторной работы должен являться 
     /// источником события
-    /// </summary>
+    
     class Product
     {
 
         #region Variables
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        private string name;
-        /// <summary>
-        /// Стоимость
-        /// </summary>
-        private decimal price;
+        
+        // Private variables
+        private string _name;
+        private decimal _price;
 
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        public string Name
+        // Public variables
+        public string name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
-                name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
+                var eventArgs = new ProductEventArgs<string>(_name, value);
+                _name = value;
+
+                if (nameChanged != null)
+                {
+                    nameChanged(this, eventArgs);
+                }
             }
         }
-        /// <summary>
-        /// Стоимость
-        /// </summary>
-        public decimal Price
+  
+        public decimal price
         {
-            get { return price; }
+            get { return _price; }
             set
             {
-                price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
+                var eventArgs = new ProductEventArgs<decimal>(_price, value);
+                _price = value;
+                
+                if (priceChanged != null)
+                {
+                    priceChanged(this, eventArgs);
+                }
             }
         }
 
@@ -59,16 +55,16 @@ namespace Events
 
         #region Events
 
-        /* 
-         * TODO #3 Добавить определение событий
-         */
+        // Public events
+        public event EventHandler<ProductEventArgs<string>> nameChanged;
+        public event EventHandler<ProductEventArgs<decimal>> priceChanged;
 
         #endregion
 
         public Product(string name, decimal price)
         {
-            Name = name;
-            Price = price;
+            this.name = name;
+            this.price = price;
         }
 
     }
