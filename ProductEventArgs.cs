@@ -1,18 +1,23 @@
-﻿namespace Events
+﻿using System;
+
+namespace Events
 {
     /// <summary>
     /// Класс, который служит для передачи аргументов 
     /// в обработчик событий, возникающих в классе 
     /// <seealso cref="Product">Product</seealso>
     /// </summary>
-    /*
-     * TODO #1 Закончить определение класса ProductEventArgs
-     */
-    class ProductEventArgs
+    /// 
+    class ProductEventArgs<T> : EventArgs
     {
-        /* 
-         * TODO #2 Добавить определение необходимых компонент 
-         * класса ProductEventArgs
-         */
+        public T PropertyOldValue { get; }     
+
+        public T PropertyNewValue { get; }
+
+        public ProductEventArgs(T propertyOldValue, T propertyNewValue)
+        {
+            PropertyOldValue = propertyOldValue;
+            PropertyNewValue = propertyNewValue;
+        }
     }
 }
