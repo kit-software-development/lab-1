@@ -24,6 +24,8 @@ namespace Events
 
         #region Properties
 
+        public delegate void ChangeName(object sender, ProductEventArgs arg);
+        public delegate void ChangePrice(object sender, ProductEventArgsD arg);
         /// <summary>
         /// Наименование
         /// </summary>
@@ -32,11 +34,18 @@ namespace Events
             get { return name; }
             set
             {
-                name = value;
+                
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                var args = new ProductEventArgs(name, value);
+                name = value;
+                if (ProductNameChange != null)
+                {
+                    ProductNameChange(this, args);
+                }
+
             }
         }
         /// <summary>
@@ -47,11 +56,17 @@ namespace Events
             get { return price; }
             set
             {
-                price = value;
+                
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                var args = new ProductEventArgsD(price, value);
+                price = value;
+                if (ProductPriceChange != null)
+                {
+                    ProductPriceChange(this, args);
+                }
             }
         }
 
@@ -62,6 +77,8 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+        public event ChangeName ProductNameChange;
+        public event ChangePrice ProductPriceChange;
 
         #endregion
 
