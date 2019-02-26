@@ -32,11 +32,12 @@ namespace Events
             get { return name; }
             set
             {
+                var args = new ProductEventArgs<string>(name, value);
                 name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
+                if (NameChanged != null)
+                {
+                    NameChanged(this, args);
+                }
             }
         }
         /// <summary>
@@ -47,22 +48,20 @@ namespace Events
             get { return price; }
             set
             {
+                var args = new ProductEventArgs<decimal>(price, value);
                 price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
+                if (PriceChanged != null)
+                {
+                    PriceChanged(this, args);
+                }
             }
         }
 
         #endregion
 
         #region Events
-
-        /* 
-         * TODO #3 Добавить определение событий
-         */
-
+        public event EventHandler<ProductEventArgs<decimal>> PriceChanged;
+        public event EventHandler<ProductEventArgs<string>> NameChanged;
         #endregion
 
         public Product(string name, decimal price)
