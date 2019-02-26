@@ -1,4 +1,5 @@
-﻿namespace Events
+﻿using System;
+namespace Events
 {
     class Program
     {
@@ -17,21 +18,24 @@
 
         static void Main(string[] args)
         {
-            Product product = new Product("Some product name", 0);
-            
-            /* 
-             * TODO #6 Назначить обработчики событий в текущем контексте 
-             */
+            Product product = new Product("Product name", 0);
+            product.NameChanged += OnNameChanged;
+            product.PriceChanged += OnPriceChanged;
+            product.Name = "Toaster";
+            product.Price = 100;
 
-            /*
-             * TODO #7 Выполнить с экземпляром класса Product действия, 
-             * приводящие к возникновению описанных Вами событий
-             */
+            Console.ReadKey();
         }
 
-        /* 
-         * TODO #8 Добавить определение обработчиков событий 
-         */
+        private static void OnNameChanged(object sender, ProductEventArgs<string> args)
+        {
+            Console.WriteLine("Название товара '{0}' сменилось на '{1}'", args.OldValue, args.NewValue);
+        }
+
+        private static void OnPriceChanged(object sender, ProductEventArgs<decimal> args)
+        {
+            Console.WriteLine("Старая цена товара '{0}' была {1} , стала {2}", ((Product)sender).Name, args.OldValue, args.NewValue);
+        }
 
     }
 }
