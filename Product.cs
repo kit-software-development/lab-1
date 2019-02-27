@@ -14,11 +14,11 @@ namespace Events
         /// <summary>
         /// Наименование
         /// </summary>
-        private string name;
+        private string _name;
         /// <summary>
         /// Стоимость
         /// </summary>
-        private decimal price;
+        private decimal _price;
 
         #endregion
 
@@ -29,14 +29,15 @@ namespace Events
         /// </summary>
         public string Name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
-                name = value;
+                var args = new ProductEventArgs(_name);
+                _name = value;
                 /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
+                 * TODO #4 Инициировать уведомление об изменении наименования
                  */
+                if (EventNameChangeHandler != null) EventNameChangeHandler.Invoke(this, args);
             }
         }
         /// <summary>
@@ -44,14 +45,16 @@ namespace Events
         /// </summary>
         public decimal Price
         {
-            get { return price; }
+            get { return _price; }
             set
             {
-                price = value;
+                var args = new ProductEventArgs(_price);
+                _price = value;
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                if (EventPriceChangeHandler != null) EventPriceChangeHandler.Invoke(this, args);
             }
         }
 
@@ -62,6 +65,8 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+        public static event EventHandler<ProductEventArgs> EventNameChangeHandler;
+        public static event EventHandler<ProductEventArgs> EventPriceChangeHandler;
 
         #endregion
 
@@ -70,6 +75,5 @@ namespace Events
             Name = name;
             Price = price;
         }
-
     }
 }
