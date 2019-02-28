@@ -25,17 +25,17 @@ namespace Events
 		/// <summary>
 		///     Определяет, изменилось ли имя продукта.
 		/// </summary>
-		public Boolean NameChanged => OldName != NewName;
+		public Boolean IsNameChanged => OldName != NewName;
 
 		/// <summary>
 		///     Определяет, изменилась ли цена продукта.
 		/// </summary>
-		public Boolean PriceChanged => OldPrice != NewPrice;
+		public Boolean IsPriceChanged => OldPrice != NewPrice;
 
 		public override String ToString()
 		{
-			String nameDiff  = NameChanged ? $"{OldName} -> {NewName}" : "unchanged";
-			String priceDiff = PriceChanged ? $"{OldPrice} -> {NewPrice}" : "unchanged";
+			String nameDiff  = IsNameChanged ? $"{OldName} -> {NewName}" : "unchanged";
+			String priceDiff = IsPriceChanged ? $"{OldPrice} -> {NewPrice}" : "unchanged";
 
 			return $"Name: {nameDiff}, Price: {priceDiff}";
 		}
