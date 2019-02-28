@@ -20,7 +20,7 @@ namespace Events
         /// </summary>
         private decimal price;
 
-        #endregion
+        #endregion 
 
         #region Properties
 
@@ -32,7 +32,13 @@ namespace Events
             get { return name; }
             set
             {
+                var args = new ProductNameChangedEventArgs(name, value);
                 name = value;
+                if (NameChanged != null)
+                {
+                    NameChanged(this, args);
+                }
+
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
@@ -47,7 +53,12 @@ namespace Events
             get { return price; }
             set
             {
+                var args = new ProductPriceChangedEventArgs(price, value);
                 price = value;
+                if (PriceChanged != null)
+                {
+                    PriceChanged(this, args);
+                }
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
@@ -55,15 +66,19 @@ namespace Events
             }
         }
 
-        #endregion
+        #endregion 
 
         #region Events
 
+        public event EventHandler<ProductNameChangedEventArgs> NameChanged;
+
+        public event EventHandler<ProductPriceChangedEventArgs> PriceChanged;
+        
         /* 
          * TODO #3 Добавить определение событий
          */
 
-        #endregion
+        #endregion 
 
         public Product(string name, decimal price)
         {
