@@ -2,74 +2,73 @@
 
 namespace Events
 {
-    /// <summary>
-    /// Класс должен описывать представление о товаре. 
-    /// В рамках лабораторной работы должен являться 
-    /// источником события
-    /// </summary>
-    class Product
-    {
+	/// <summary>
+	///     Класс должен описывать представление о товаре.
+	///     В рамках лабораторной работы должен являться
+	///     источником события
+	/// </summary>
+	internal class Product
+	{
+		/// <summary>
+		///     Наименование
+		/// </summary>
+		private String _name;
 
-        #region Variables
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        private string name;
-        /// <summary>
-        /// Стоимость
-        /// </summary>
-        private decimal price;
+		/// <summary>
+		///     Стоимость
+		/// </summary>
+		private Decimal _price;
 
-        #endregion
+		public Product(String name, Decimal price)
+		{
+			Name  = name;
+			Price = price;
+		}
 
-        #region Properties
+		/// <summary>
+		///     Возникает, когда имя продукта было изменено.
+		/// </summary>
+		public event EventHandler<ProductEventArgs> NameChanged;
 
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
-            }
-        }
-        /// <summary>
-        /// Стоимость
-        /// </summary>
-        public decimal Price
-        {
-            get { return price; }
-            set
-            {
-                price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
-            }
-        }
+		/// <summary>
+		///     Возникает, когда цена продукта была изменена.
+		/// </summary>
+		public event EventHandler<ProductEventArgs> PriceChanged;
 
-        #endregion
+		/// <summary>
+		///     Наименование
+		/// </summary>
+		public String Name
+		{
+			get => _name;
+			set
+			{
+				if (_name == value)
+					return;
 
-        #region Events
+				String oldName = _name;
 
-        /* 
-         * TODO #3 Добавить определение событий
-         */
+				_name = value;
+				NameChanged?.Invoke(this, new ProductEventArgs(oldName, _name, _price, _price));
+			}
+		}
 
-        #endregion
+		/// <summary>
+		///     Стоимость
+		/// </summary>
+		public Decimal Price
+		{
+			get => _price;
+			set
+			{
+				if (_price == value)
+					return;
 
-        public Product(string name, decimal price)
-        {
-            Name = name;
-            Price = price;
-        }
+				Decimal oldPrice = _price;
 
-    }
+				_price = value;
+				PriceChanged?.Invoke(this, new ProductEventArgs(_name, _name, oldPrice, _price));
+			}
+		}
+	}
 }

@@ -1,37 +1,31 @@
-﻿namespace Events
+﻿using System;
+
+namespace Events
 {
-    class Program
-    {
-        internal Product Product
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+	internal static class Program
+	{
+		private static void Main(String[] args)
+		{
+			Product product = new Product("Some product name", 0);
 
-            set
-            {
-                throw new System.NotImplementedException();
-            }
-        }
+			product.NameChanged  += ProductOnNameChanged;
+			product.PriceChanged += ProductOnPriceChanged;
 
-        static void Main(string[] args)
-        {
-            Product product = new Product("Some product name", 0);
-            
-            /* 
-             * TODO #6 Назначить обработчики событий в текущем контексте 
-             */
+			Console.WriteLine("Changing name");
+			product.Name = "Iron plates";
 
-            /*
-             * TODO #7 Выполнить с экземпляром класса Product действия, 
-             * приводящие к возникновению описанных Вами событий
-             */
-        }
+			Console.WriteLine("Changing price");
+			product.Price = 42;
+		}
 
-        /* 
-         * TODO #8 Добавить определение обработчиков событий 
-         */
+		private static void ProductOnPriceChanged(Object sender, ProductEventArgs e)
+		{
+			Console.WriteLine(e);
+		}
 
-    }
+		private static void ProductOnNameChanged(Object sender, ProductEventArgs e)
+		{
+			Console.WriteLine(e);
+		}
+	}
 }
