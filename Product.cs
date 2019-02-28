@@ -9,7 +9,6 @@ namespace Events
     /// </summary>
     class Product
     {
-
         #region Variables
         /// <summary>
         /// Наименование
@@ -32,7 +31,12 @@ namespace Events
             get { return name; }
             set
             {
+                var args= new NameChangeEventArgs(name, value);
                 name = value;
+                if (NameChanged != null)
+                {
+                    NameChanged(this, args);
+                }
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
@@ -47,21 +51,28 @@ namespace Events
             get { return price; }
             set
             {
-                price = value;
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                var args = new PriceChangeEventArgs(price, value);
+                price = value;
+                if (PriceChanged != null)
+                {
+                    PriceChanged(this, args);
+                }
             }
         }
 
         #endregion
 
         #region Events
-
+   
         /* 
          * TODO #3 Добавить определение событий
          */
+        public event EventHandler<PriceChangeEventArgs> PriceChanged;
+        public event EventHandler<NameChangeEventArgs> NameChanged;
 
         #endregion
 
