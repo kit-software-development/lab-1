@@ -32,15 +32,15 @@ namespace Events
             get { return name; }
             set
             {
+                /* 
+                 * TODO #4 Инициировать уведомление об 
+                 * изменении наименования
+                 */
                 var args = new ProductEventArgs(name);
                 name = value;
 
                 if (event_NameChange != null)
                     event_NameChange.Invoke(this, args);
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
             }
         }
         /// <summary>
