@@ -1,4 +1,6 @@
-﻿namespace Events
+﻿using System;
+
+namespace Events
 {
     /// <summary>
     /// Класс, который служит для передачи аргументов 
@@ -8,11 +10,23 @@
     /*
      * TODO #1 Закончить определение класса ProductEventArgs
      */
-    class ProductEventArgs
+    class ProductEventArgs : EventArgs
     {
         /* 
          * TODO #2 Добавить определение необходимых компонент 
          * класса ProductEventArgs
          */
+        public string OldName { get; }
+        public decimal OldPrice { get; }
+
+        public ProductEventArgs(string oldName)
+        {
+            this.OldName = oldName;
+        }
+
+        public ProductEventArgs(decimal oldPrice)
+        {
+            this.OldPrice = oldPrice;
+        }
     }
 }

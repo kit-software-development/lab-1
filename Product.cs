@@ -32,11 +32,15 @@ namespace Events
             get { return name; }
             set
             {
-                name = value;
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                var args = new ProductEventArgs(name);
+                name = value;
+
+                if (event_NameChange != null)
+                    event_NameChange.Invoke(this, args);
             }
         }
         /// <summary>
@@ -47,11 +51,14 @@ namespace Events
             get { return price; }
             set
             {
+                var args = new ProductEventArgs(price);
                 price = value;
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                if (event_PriceChange != null)
+                    event_PriceChange.Invoke(this, args);
             }
         }
 
@@ -62,6 +69,9 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+
+        public static EventHandler<ProductEventArgs> event_NameChange;
+        public static EventHandler<ProductEventArgs> event_PriceChange;
 
         #endregion
 
