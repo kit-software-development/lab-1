@@ -7,9 +7,9 @@ namespace Events
     /// В рамках лабораторной работы должен являться 
     /// источником события
     /// </summary>
+
     class Product
     {
-
         #region Variables
         /// <summary>
         /// Наименование
@@ -31,12 +31,17 @@ namespace Events
         {
             get { return name; }
             set
-            {
-                name = value;
+            {               
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                var args = new NameChangeEventArgs(name, value);
+                name = value;
+                if (NameChanged != null)
+                {
+                    NameChanged(this, args);
+                }
             }
         }
         /// <summary>
@@ -46,12 +51,17 @@ namespace Events
         {
             get { return price; }
             set
-            {
-                price = value;
+            {               
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                var args = new PriceChangeEventArgs(price, value);
+                price = value;
+                if (PriceChanged != null)
+                {
+                    PriceChanged(this, args);
+                }
             }
         }
 
@@ -62,6 +72,8 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+        public event EventHandler<NameChangeEventArgs> NameChanged;
+        public event EventHandler<PriceChangeEventArgs> PriceChanged;
 
         #endregion
 
