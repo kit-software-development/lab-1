@@ -37,6 +37,10 @@ namespace Events
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                 if(NameChanged != null)
+                {
+                    NameChanged(this, new ProductEventArgs(name, value));
+                }
             }
         }
         /// <summary>
@@ -52,6 +56,10 @@ namespace Events
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                 if(PriceChanged != null)
+                {
+                    PriceChanged(this, new ProductEventArgs(price, value));
+                }
             }
         }
 
@@ -62,6 +70,8 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+        public event EventHandler<ProductEventArgs> NameChanged;
+        public event EventHandler<ProductEventArgs> PriceChanged;
 
         #endregion
 
