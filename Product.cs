@@ -73,7 +73,7 @@ namespace Events
 
         public Product(string name, decimal price)
         {
-            Name = name;
+            Name  = name;
             Price = price;
         }
 

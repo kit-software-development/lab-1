@@ -17,8 +17,8 @@ namespace Events
          * класса ProductEventArgs
          */
 
-        public string OldName; //{get; private set;}
-        public decimal OldPrice; //{get; private set;}
+        public string  OldName  { get; private set; }
+        public decimal OldPrice { get; private set; }
 
         public ProductEventArgs(string oldName)
         {
