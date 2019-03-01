@@ -47,7 +47,7 @@ namespace Events
         {
             var product = sender as Product;
             Console.WriteLine(
-                  $"The product \"{e.OldName}\""
+                  $"The product \"{e.OldName}\" "
                 + $"is now called \"{product.Name}\"."
             );
         }
@@ -55,7 +55,7 @@ namespace Events
         {
             var product = sender as Product;
             Console.WriteLine(
-                  $"The \"{product.Name}\" product's price has changed"
+                  $"The \"{product.Name}\" product's price has changed "
                 + $"from {e.OldPrice}$ to {product.Price}$."
             );
         }
