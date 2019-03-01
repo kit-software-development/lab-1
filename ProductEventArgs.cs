@@ -8,11 +8,19 @@
     /*
      * TODO #1 Закончить определение класса ProductEventArgs
      */
-    class ProductEventArgs
+    class ProductEventArgs : EventArgs
     {
         /* 
          * TODO #2 Добавить определение необходимых компонент 
          * класса ProductEventArgs
          */
+         public string OldName { get; }
+         public decimal OldPrice { get; }
+         
+        public ProductEventArgs(string oldName, decimal oldPrice)
+        {
+            OldName = oldName;
+            OldPrice = oldPrice;
+        }
     }
 }
