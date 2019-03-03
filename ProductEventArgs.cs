@@ -1,18 +1,19 @@
-﻿namespace Events
+﻿using System;
+
+namespace Events
 {
     /// <summary>
     /// Класс, который служит для передачи аргументов 
     /// в обработчик событий, возникающих в классе 
     /// <seealso cref="Product">Product</seealso>
     /// </summary>
-    /*
-     * TODO #1 Закончить определение класса ProductEventArgs
-     */
-    class ProductEventArgs
+    sealed class ProductEventArgs : EventArgs
     {
-        /* 
-         * TODO #2 Добавить определение необходимых компонент 
-         * класса ProductEventArgs
-         */
+        public string OldName { get; internal set; }
+        public string NewName { get; internal set; }
+        public decimal OldPrice { get; internal set; }
+        public decimal NewPrice { get; internal set; }
+        public DateTime ChangeDate { get; internal set; }
+
     }
 }
