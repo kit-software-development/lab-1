@@ -22,6 +22,7 @@ namespace Events
 
         #endregion
 
+
         #region Properties
 
         /// <summary>
@@ -32,11 +33,15 @@ namespace Events
             get { return name; }
             set
             {
+                if(NameChange !=null)
+                {
+                    var args = new ProductEventArgs { OldName = name, NewName = value, OldPrice = price, ChangeDate = DateTime.Today };
+                    NameChange(this, args);
+                }
+
                 name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
+                
+
             }
         }
         /// <summary>
@@ -47,11 +52,13 @@ namespace Events
             get { return price; }
             set
             {
+                if (PriceChange != null)
+                {
+                    var args = new ProductEventArgs { NewName = name, OldPrice = price, NewPrice = value, ChangeDate = DateTime.Today };
+                    PriceChange(this, args);
+                }
+
                 price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
             }
         }
 
@@ -59,9 +66,8 @@ namespace Events
 
         #region Events
 
-        /* 
-         * TODO #3 Добавить определение событий
-         */
+        public event EventHandler<ProductEventArgs> NameChange;
+        public event EventHandler<ProductEventArgs> PriceChange;
 
         #endregion
 
