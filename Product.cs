@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Events
 {
@@ -32,11 +32,16 @@ namespace Events
             get { return name; }
             set
             {
+                ProductEventArgs arg = new ProductEventArgs(name);
                 name = value;
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                if (nameChanged != null)
+                {
+                    nameChanged(this, arg);
+                }
             }
         }
         /// <summary>
@@ -47,11 +52,16 @@ namespace Events
             get { return price; }
             set
             {
+                ProductEventArgs arg = new ProductEventArgs(price);
                 price = value;
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                if (priceChanged != null)
+                {
+                    priceChanged(this, arg);
+                }
             }
         }
 
@@ -62,6 +72,8 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+        public event EventHandler<ProductEventArgs> nameChanged;
+        public event EventHandler<ProductEventArgs> priceChanged;
 
         #endregion
 
