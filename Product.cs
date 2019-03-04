@@ -1,6 +1,7 @@
-﻿using System;
+using System;
+using System.Runtime.InteropServices;
 
-namespace Events
+namespace Home_Delegates
 {
     /// <summary>
     /// Класс должен описывать представление о товаре. 
@@ -32,11 +33,16 @@ namespace Events
             get { return name; }
             set
             {
-                name = value;
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                var args = new ProductChangedEventArgs<string>(/*Name,*/name, value);
+                name = value;
+                if (NameChanged != null)
+                {
+                    NameChanged(this, args);
+                }
             }
         }
         /// <summary>
@@ -47,11 +53,16 @@ namespace Events
             get { return price; }
             set
             {
-                price = value;
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                var args = new ProductChangedEventArgs<decimal>(/*Name,*/price, value);
+                price = value;
+                if (PriceChanged != null)
+                {
+                    PriceChanged(this, args);
+                }
             }
         }
 
@@ -62,7 +73,9 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
-
+        public event EventHandler<ProductChangedEventArgs<string>> NameChanged;
+        public event EventHandler<ProductChangedEventArgs<decimal>> PriceChanged;
+        
         #endregion
 
         public Product(string name, decimal price)
