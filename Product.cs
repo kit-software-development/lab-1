@@ -1,57 +1,45 @@
-﻿using System;
+using System;
+using System.Security.Policy;
 
 namespace Events
 {
-    /// <summary>
-    /// Класс должен описывать представление о товаре. 
-    /// В рамках лабораторной работы должен являться 
-    /// источником события
-    /// </summary>
     class Product
     {
-
         #region Variables
-        /// <summary>
-        /// Наименование
-        /// </summary>
+
         private string name;
-        /// <summary>
-        /// Стоимость
-        /// </summary>
         private decimal price;
 
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Наименование
-        /// </summary>
         public string Name
         {
             get { return name; }
             set
             {
+                var args = new ProductEventArgs<string>(name,value);
                 name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
+                if (NameChanged != null)
+                {
+                    NameChanged(this, args);
+                }
             }
+               
         }
-        /// <summary>
-        /// Стоимость
-        /// </summary>
+        
         public decimal Price
         {
             get { return price; }
             set
             {
+                var args = new ProductEventArgs<decimal>(price,value);
                 price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
+                if (PriceChanged != null)
+                {
+                    PriceChanged(this, args);
+                }
             }
         }
 
@@ -59,9 +47,8 @@ namespace Events
 
         #region Events
 
-        /* 
-         * TODO #3 Добавить определение событий
-         */
+        public event EventHandler<ProductEventArgs<string>> NameChanged;
+        public event EventHandler<ProductEventArgs<decimal>> PriceChanged;
 
         #endregion
 
