@@ -32,11 +32,14 @@ namespace Events
             get { return name; }
             set
             {
+                ProductEventArgs args = new ProductEventArgs(name, value);
                 name = value;
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                if (NameChanged != null)
+                    NameChanged(this, args);
             }
         }
         /// <summary>
@@ -47,11 +50,14 @@ namespace Events
             get { return price; }
             set
             {
-                price = value;
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                ProductEventArgs args = new ProductEventArgs(price, value);
+                price = value;
+                if (PriceChanged != null)
+                    PriceChanged(this, args);
             }
         }
 
@@ -62,6 +68,8 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+        public event EventHandler<ProductEventArgs> NameChanged;
+        public event EventHandler<ProductEventArgs> PriceChanged;
 
         #endregion
 
