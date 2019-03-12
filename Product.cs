@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Events
 {
@@ -32,11 +32,9 @@ namespace Events
             get { return name; }
             set
             {
+                var args = new ProductChangedEventArgs<string>(name, value);
                 name = value;
-                /* 
-                 * TODO #4 Инициировать уведомление об 
-                 * изменении наименования
-                 */
+                NameChanged?.Invoke(this, args);
             }
         }
         /// <summary>
@@ -46,12 +44,10 @@ namespace Events
         {
             get { return price; }
             set
-            {
+            {              
+                var args = new ProductChangedEventArgs<decimal>(price, value);
                 price = value;
-                /*
-                 * TODO #5 Инициировать уведомление об 
-                 * изменении стоимости
-                 */
+                PriceChanged?.Invoke(this, args);
             }
         }
 
@@ -59,9 +55,9 @@ namespace Events
 
         #region Events
 
-        /* 
-         * TODO #3 Добавить определение событий
-         */
+        public event EventHandler<ProductChangedEventArgs<string>> NameChanged;
+
+        public event EventHandler<ProductChangedEventArgs<decimal>> PriceChanged;
 
         #endregion
 
@@ -73,3 +69,5 @@ namespace Events
 
     }
 }
+
+
