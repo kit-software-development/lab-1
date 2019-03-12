@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Events
 {
@@ -32,7 +36,12 @@ namespace Events
             get { return name; }
             set
             {
+                var args = new ProductEventArgs<string>(name, value);
                 name = value;
+                if(NameChanged != null)
+                {
+                    NameChanged(this, args);
+                }
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
@@ -47,7 +56,12 @@ namespace Events
             get { return price; }
             set
             {
+                var args = new ProductEventArgs<decimal>(name, value);
                 price = value;
+                if (PriceChanged != null)
+                {
+                    PriceChanged(this, args);
+                }
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
@@ -59,6 +73,8 @@ namespace Events
 
         #region Events
 
+        public event EventHandler<ProductEventArgs<string>> NameChanged;
+        public event EventHandler<ProductEventArgs<decimal>> PriceChanged;
         /* 
          * TODO #3 Добавить определение событий
          */
