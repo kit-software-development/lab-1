@@ -2,41 +2,72 @@ using System;
 
 namespace Events
 {
-    class Program
+    /// <summary>
+    /// Класс должен описывать представление о товаре. 
+    /// В рамках лабораторной работы должен являться 
+    /// источником события
+    /// </summary>
+    class Product
     {
-        internal Product Product
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
 
+        #region Variables
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        private string name;
+        /// <summary>
+        /// Стоимость
+        /// </summary>
+        private decimal price;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
             set
             {
-                throw new System.NotImplementedException();
+                var args = new ProductChangedEventArgs<string>(name, value);
+                name = value;
+                NameChanged?.Invoke(this, args);
+            }
+        }
+        /// <summary>
+        /// Стоимость
+        /// </summary>
+        public decimal Price
+        {
+            get { return price; }
+            set
+            {              
+                var args = new ProductChangedEventArgs<decimal>(price, value);
+                price = value;
+                PriceChanged?.Invoke(this, args);
             }
         }
 
-        static void Main(string[] args)
-        {
-            Product product = new Product("Car", 1000);
+        #endregion
 
-            product.NameChanged += OnNameChanged;
-            product.PriceChanged += OnPriceChanged;
-            product.Name = "Super Car";
-            product.Price = 10839;
-        }
+        #region Events
 
-        private void OnPriceChanged(Product sender, ProductChangedEventArgs<decimal> e)
-        {
-            Console.WriteLine("Цена продукта [0] изменилась с [1] на [2]", sender.Name, e.OldValue, e.NewValue);
-        }
+        public event EventHandler<ProductChangedEventArgs<string>> NameChanged;
 
-        private void OnNameChanged(Product sender, ProductChangedEventArgs<string> e)
+        public event EventHandler<ProductChangedEventArgs<decimal>> PriceChanged;
+
+        #endregion
+
+        public Product(string name, decimal price)
         {
-            Console.WriteLine("Название продукта [0] изменилось с [1] на [0]", e.NewValue,e.OldValue);
+            Name = name;
+            Price = price;
         }
 
     }
 }
+
 
