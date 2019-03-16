@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Events
 {
@@ -32,11 +32,16 @@ namespace Events
             get { return name; }
             set
             {
-                name = value;
+                var args = new NameChangeEventArgs(name, value);
+               name = value;
                 /* 
                  * TODO #4 Инициировать уведомление об 
                  * изменении наименования
                  */
+                 if (NameChangeEvent != null)
+                {
+                    NameChangeEvent(this, args);
+                }
             }
         }
         /// <summary>
@@ -47,11 +52,17 @@ namespace Events
             get { return price; }
             set
             {
+                var args = new PriceChangeEventArgs(price, value);
                 price = value;
                 /*
                  * TODO #5 Инициировать уведомление об 
                  * изменении стоимости
                  */
+                 if (PriceChangeEvent != null)
+                {
+                    PriceChangeEvent(this, args); 
+                }
+
             }
         }
 
@@ -62,6 +73,39 @@ namespace Events
         /* 
          * TODO #3 Добавить определение событий
          */
+
+            // объявляем делегат
+        public delegate void ProductHandler(object sender, EventArgs e);
+            // событие, возникающие при изменении наименования
+        public event EventHandler<NameChangeEventArgs> NameChangeEvent;
+            // событие, возникающие при изменении стоимости
+        public event EventHandler<ProductEventArgs> PriceChangeEvent;
+
+        class NameChangeEventArgs : EventArgs
+        { 
+            public string Old { get; }
+            public string Current { get; }
+
+            public NameChangeEventArgs( string old, string current)
+            {
+                Old = old;
+                Current = current;
+            }
+        }
+
+        class PriceChangeEventArgs : EventArgs
+        {
+            public decimal Old { get; }
+            public decimal Current { get; }
+
+            public PriceChangeEventArgs(decimal old, decimal current)
+            {
+                Old = old;
+                Current = current;
+            }
+        }
+
+
 
         #endregion
 
